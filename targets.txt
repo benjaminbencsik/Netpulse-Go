@@ -1,0 +1,4 @@
+https://www.google.com
+https://www.github.com
+8.8.8.8
+https://thisurldoesnotexist12345.com
