@@ -4,54 +4,44 @@ NetPulse-Go is a simple, concurrent network monitoring tool written in Go. It re
 
 This project uses only the Go standard library.
 
-## Features
+## Installation
 
-- **Concurrent Monitoring**: Uses Goroutines and WaitGroups to check multiple targets simultaneously without blocking.
-- **Configurable Targets**: Easily add or remove targets by editing the `targets.txt` file.
-- **Periodic Checks**: Pings all targets every 30 seconds.
-- **CSV Logging**: Records results with a timestamp, target, status, and latency in `network_log.csv`.
-- **Standard Library Only**: Built using only the Go standard library, with no external dependencies.
+The easiest way to install NetPulse-Go is to use `go install`. This will download the source, compile it, and place the `Netpulse-Go` binary in your Go bin directory, making it available from your command line.
 
-## Prerequisites
+**Note:** You must have your Go environment set up correctly (i.e., your `$GOPATH/bin` or `$HOME/go/bin` directory must be in your system's `PATH`).
 
-- [Go](https://golang.org/doc/install) (version 1.18 or higher is recommended).
-- A correctly configured Go environment (i.e., the `go` command is in your system's PATH).
-
-## Getting Started
-
-1.  **Place the project files** in a directory of your choice.
-
-2.  **Add your targets:**
-    Open the `targets.txt` file and add the URLs (e.g., `https://www.google.com`) or IP addresses/hostnames (e.g., `8.8.8.8`) you wish to monitor. Add one entry per line.
-
-3.  **Run the application:**
-    Open your terminal, navigate to the project directory, and run the following commands:
-
+1.  **Install the application:**
     ```sh
-    # Initialize the Go module (only needs to be done once)
-    go mod init netpulse-go
-
-    # Run the network monitor
-    go run main.go
+    go install -v github.com/benjaminbencsik/Netpulse-Go@latest
     ```
 
-    The application will start, and you will see output in your console as it begins to ping the targets. To stop the monitor, press `Ctrl+C`.
+2.  **Create your targets file:**
+    `Netpulse-Go` looks for a `targets.txt` file in the directory where you run it. Create this file and add the URLs or IP addresses you want to monitor, one per line.
+    
+    **Example `targets.txt`:**
+    ```
+    https://www.google.com
+    8.8.8.8
+    ```
 
-## Log Output
+3.  **Run the application:**
+    Once installed, you can run it from any directory:
+    ```sh
+    Netpulse-Go
+    ```
+    The monitor will start and create a `network_log.csv` file in the same directory. You can stop it by pressing `Ctrl+C`.
 
-The monitoring results will be saved to the `network_log.csv` file.
+## Development (Running from Source)
 
-- **Timestamp**: The UTC timestamp of the check in RFC3339 format.
-- **Target**: The URL or IP address that was checked.
-- **Status**: The result of the check.
-    - For HTTP/S targets, this will be the HTTP status (e.g., `200 OK`).
-    - For IP/hostname targets, this will be `UP` or `DOWN`.
-- **Latency**: The time it took to get a response from the target.
+If you want to modify the code or run it directly from the source, follow these steps:
 
-### Example Log (`network_log.csv`)
-```csv
-Timestamp,Target,Status,Latency
-2026-01-08T18:30:00Z,https://www.google.com,200 OK,25.123ms
-2026-01-08T18:30:00Z,8.8.8.8,UP,12.456ms
-2026-01-08T18:30:00Z,https://thisurldoesnotexist12345.com,Error: Get "https://thisurldoesnotexist12345.com": dial tcp: no such host,5.2s
-```
+1.  **Clone the repository:**
+    ```sh
+    git clone https://github.com/benjaminbencsik/Netpulse-Go.git
+    cd Netpulse-Go
+    ```
+
+2.  **Run the application:**
+    ```sh
+    go run main.go
+    ```
